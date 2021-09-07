@@ -19,13 +19,19 @@ sqlcmd -S localhost:1433 -U SA -P "<YourStrong@Passw0rd>"
 ```
 
 b) create database
+
+```
 docker exec -it sql1 "bash"
+```
 
 then in the container
+```
 /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "WelcomeAzure23!"
-
-CREATE DATABASE mydrivingDB
-
+```
+create the database:
+```
+CREATE DATABASE mydrivingDB;
+```
 ---
 or
 
@@ -52,7 +58,7 @@ docker run --network bridge -e SQLFQDN=172.17.0.2 -e SQLUSER=sa -e SQLPASS="<You
 ```
 
 
-c) build POI container
+d) build POI container
 first edit Dockerfile to give the right connection info
 
 build
@@ -78,9 +84,25 @@ az login
 -> login to hacker account
 ```
 
+verify with 
 ```
- 
+az account show
 ```
+
+```
+az acr login --name registryhhm0245
+```
+
+label the image wih t the fully quaified name so docker knows wher to push to
+```
+docker tag tripinsights/trips:1.0 registryhhm0245.azurecr.io/trips:1.0
+```
+
+```
+docker push registryhhm0245.azurecr.io/trips:1.0
+```
+
+# Challenge 3 Approach
 
 
 
