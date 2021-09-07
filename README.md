@@ -55,6 +55,32 @@ docker run --network bridge -e SQLFQDN=172.17.0.2 -e SQLUSER=sa -e SQLPASS="<You
 c) build POI container
 first edit Dockerfile to give the right connection info
 
+build
+```
+docker build --pull --rm -f "src/poi/Dockerfile" -t poi-linda:latest "src/poi"
+```
+
+run
+```
+docker run -d -p 8080:80 --name poi -e "SQL_PASSWORD=<YourStrong@Passw0rd>" -e "SQL_SERVER=172.17.0.2" -e "ASPNETCORE_ENVIRONMENT=Local" poi-linda:latest
+```
+
+verify we have the image
+```
+docker image ls
+-> 
+REPOSITORY                       TAG                 IMAGE ID            CREATED             SIZE
+tripinsights/userprofile         1.0                 639efbdcf8d6        33 seconds ago      210MB
+```
+
+```
+az login
+-> login to hacker account
+```
+
+```
+ 
+```
 
 
 
