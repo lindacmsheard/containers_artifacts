@@ -122,6 +122,25 @@ Create an AKS cluster
 - container registry is integrated. 
 
 
+Create a kubernetes secret
+```sh
+export RG=rg-aks-oh
+export AKS_NAME=aks-oh
+az aks get-credentials --resource-group $RG --name $AKS_NAME
+
+kubectl get nodes
+
+kubectl create namespace --help
+kubectl create namespace tripinsight
+
+
+kubectl create secret generic mssqlconnectionstring \
+    --namespace tripinsight \
+    --from-literal=SQL_PASSWORD="uL6nj2Qo1" 
+
+
+#     [--from-literal=key1=value1]
+```
 
 # Containers 2.0 Openhack
 
