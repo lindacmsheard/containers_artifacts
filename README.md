@@ -79,6 +79,7 @@ REPOSITORY                       TAG                 IMAGE ID            CREATED
 tripinsights/userprofile         1.0                 639efbdcf8d6        33 seconds ago      210MB
 ```
 
+e) login to be able to push to container registry
 ```
 az login
 -> login to hacker account
@@ -89,20 +90,36 @@ verify with
 az account show
 ```
 
+login to acr:
 ```
 az acr login --name registryhhm0245
 ```
 
-label the image wih t the fully quaified name so docker knows wher to push to
+label the image wih the fully qualified name so docker knows where to push to
 ```
 docker tag tripinsights/trips:1.0 registryhhm0245.azurecr.io/trips:1.0
 ```
-
+push the image
 ```
 docker push registryhhm0245.azurecr.io/trips:1.0
 ```
 
 # Challenge 3 Approach
+
+Create an AKS cluster
+- name: aks-oh
+- location ukwest
+- default kube version 1.20.9
+- DS2 machines
+- enable virtual nodes is disabled
+- autoscale
+- Kubenet vs Azure CNI
+  - select the vnet there rg-aks-oh-vnet - new vnet - we can do private link later if the sql is in another vnet 
+- Enable HTTP application routing
+- Enable container monitoring
+- new default log analytics workspace. 
+- Policy is a separate feature we can enable afterwards
+- container registry is integrated. 
 
 
 
