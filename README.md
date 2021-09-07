@@ -12,10 +12,11 @@ sudo docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=<YourStrong@Passw0rd>" \
    -d \
    mcr.microsoft.com/mssql/server:2017-latest
 ```
-Test connection 
-[tbc]
-```
-sqlcmd -S localhost:1433 -U SA -P "<YourStrong@Passw0rd>"
+Test connection without going into the container - directly to exposed SQLDB
+
+```sh
+#sqlcmd -S localhost:1433 -U SA -P "<YourStrong@Passw0rd>"  ## doesn't work
+sqlcmd -S 127.0.0.1 -U SA -P "<YourStrong@Passw0rd>"  ## this works!
 ```
 
 b) create database
@@ -35,10 +36,18 @@ CREATE DATABASE mydrivingDB;
 ---
 or
 
-[tbc - doesn't work]
+```sh
+sqlcmd -S 127.0.0.1 -U SA -P "<YourStrong@Passw0rd>"
+CREATE DATABASE mydrivingDB;
+GO
 
-sqlcmd -S localhost:1433 -U SA -P "<YourStrong@Passw0rd>"
+# check database tables after data load
+USE mydrivingDB;
+GO
 
+SELECT NAME from sys.tables;
+GO
+```
 c) Data loading:
 uses an open? image called data-load v1
 
