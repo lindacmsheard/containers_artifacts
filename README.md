@@ -18,6 +18,7 @@ Test connection without going into the container - directly to exposed SQLDB
 #sqlcmd -S localhost:1433 -U SA -P "<YourStrong@Passw0rd>"  ## doesn't work
 sqlcmd -S 127.0.0.1 -U SA -P "<YourStrong@Passw0rd>"  ## this works!
 ```
+> Warning: turns out that the port specification requires a komma sytnax: `-S 127.0.0.1,1433` also works. Appears that the default port that sqlcmd will look for is 1433.
 
 b) create database
 
