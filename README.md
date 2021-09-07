@@ -1,5 +1,63 @@
 # TEAM 9 Fork
 
+
+# Challenge 2: Approach:
+
+a) Boot up the SQL container
+
+Default user might be SA
+```
+sudo docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=<YourStrong@Passw0rd>" \
+   -p 1433:1433 --name sql1 -h sql1 \
+   -d \
+   mcr.microsoft.com/mssql/server:2017-latest
+```
+Test connection 
+[tbc]
+```
+sqlcmd -S localhost:1433 -U SA -P "<YourStrong@Passw0rd>"
+```
+
+b) create database
+docker exec -it sql1 "bash"
+
+then in the container
+/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "WelcomeAzure23!"
+
+CREATE DATABASE mydrivingDB
+
+---
+or
+
+[tbc - doesn't work]
+
+sqlcmd -S localhost:1433 -U SA -P "<YourStrong@Passw0rd>"
+
+c) Data loading:
+uses an open? image called data-load v1
+
+docker network ls
+
+```
+docker run --network host -e SQLFQDN=127.0.0.1 -e SQLUSER=sa -e SQLPASS="<YourStrong@Passw0rd>" -e SQLDB=mydrivingDB openhack/data-load:v1
+```
+
+or 
+```
+docker inspect sql1
+```
+to get the *bridge* network IP Address
+```
+docker run --network bridge -e SQLFQDN=172.17.0.2 -e SQLUSER=sa -e SQLPASS="<YourStrong@Passw0rd>" -e SQLDB=mydrivingDB openhack/data-load:v1
+```
+
+
+c) build POI container
+first edit Dockerfile to give the right connection info
+
+
+
+
 # Containers 2.0 Openhack
 
 <!-- 
