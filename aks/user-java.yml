@@ -1,0 +1,59 @@
+
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-java
+  namespace: tripinsight
+  labels:
+    app.kubernetes.io/name: user-java
+spec:
+  auth_enabled: FALSE
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-java
+  template:
+    metadata:
+      labels:
+        app: user-java
+        version: beta-0514-1915
+        deploy: 21-05-14-19-15-24
+   
+    spec:
+      containers:
+        - name: user-java
+          image: registryhhm0245.azurecr.io/user-java:1.0
+          imagePullPolicy: Always        
+          
+       
+
+          ports:
+            - name: http
+              containerPort: 8083
+              protocol: TCP
+
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 500m
+              memory: 512Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-java
+  namespace: tripinsight
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8083
+      targetPort: 8083
+      protocol: TCP
+      name: http
+  selector:
+    app: user-java
+ 

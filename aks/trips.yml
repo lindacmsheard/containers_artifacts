@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trips
+  namespace: tripinsight
+  labels:
+    app.kubernetes.io/name: trips
+spec:
+  auth_enabled: FALSE
+  replicas: 1
+  selector:
+    matchLabels:
+      app: trips
+  template:
+    metadata:
+      labels:
+        app: trips
+        version: beta-0514-1915
+        deploy: 21-05-14-19-15-24
+   
+    spec:
+      containers:
+        - name: trips
+          image: registryhhm0245.azurecr.io/trips:1.0
+          imagePullPolicy: Always        
+          
+          args: 
+          - --SQL_USER
+          - sqladminhHm0245
+          - --SQL_PASSWORD 
+          - uL6nj2Qo1 
+          - --SQL_SERVER 
+          - sqlserverhhm0245.database.windows.net
+
+
+          ports:
+            - name: http
+              containerPort: 8083
+              protocol: TCP
+
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 500m
+              memory: 512Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: trips
+  namespace: tripinsight
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8083
+      targetPort: 8083
+      protocol: TCP
+      name: http
+  selector:
+    app: trips
+ 
