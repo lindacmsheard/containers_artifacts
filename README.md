@@ -144,9 +144,22 @@ kubectl create namespace --help
 kubectl create namespace tripinsight
 
 
-kubectl create secret generic mssqlconnectionstring \
-    --namespace tripinsight \
-    --from-literal=SQL_PASSWORD="uL6nj2Qo1" 
+#get credentials 
+az aks get-credentials --resource-group $RESOURCE_GROUP --name $AKS_CLUSTER_NAME
+
+# get nodes
+kubectl get nodes 
+
+#Start K9s
+k9s
+ 
+# Create namespace
+kubectl create namespace tripinsight
+
+#Create secret
+kubectl create secret generic mssqlpassw --namespace tripinsight --from-literal=MSSQLPASSW="xxxxx"
+kubectl create secret generic mssqluser --namespace tripinsight --from-literal=MSSQLUSER="xxxxxxxxxxxxx"
+
 
 
 #     [--from-literal=key1=value1]
@@ -220,3 +233,5 @@ provided by the bot. You will only need to do this once across all repos using o
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
 For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
 contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+
+
