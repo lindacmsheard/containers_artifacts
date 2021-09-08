@@ -28,7 +28,7 @@ spec:
           - name: USERPROFILE_API_ENDPOINT
             value: "http://userprofile/"
           - name: TRIPS_API_ENDPOINT
-            value: "trips"
+            value: "http://trips/"
           - name: BING_MAPS_KEY
             value: "key"
         resources:
