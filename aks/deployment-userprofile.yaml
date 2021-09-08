@@ -1,0 +1,64 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: userprofile
+  namespace: tripinsight
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: userprofile
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5 
+  template:
+    metadata:
+      labels:
+        app: userprofile
+    spec:
+      nodeSelector:
+        "beta.kubernetes.io/os": linux
+      containers:
+      - name: userprofile
+        image: registryhhm0245.azurecr.io/userprofile:1.0
+        env:
+          - name: CONFIG_FILES_PATH
+            value: "/secrets"
+          - name: SQL_USER
+            value: "sqladminhHm0245"
+          - name: SQL_SERVER
+            value: "sqlserverhhm0245.database.windows.net"
+          - name: SQL_PASSWORD
+            value: "uL6nj2Qo1"
+          - name: SQL_DBNAME
+            value: "mydrivingDB"
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: userprofile
+  namespace: tripinsight
+spec:
+  type: ClusterIP
+  ports:
+  - protocol: TCP
+    name: poi-http
+    port: 80
+    targetPort: 80
+  selector:
+    app: userprofile
+
+
+
