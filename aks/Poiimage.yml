@@ -25,17 +25,23 @@ spec:
       containers:
         - name: poi
           image: registryhhm0245.azurecr.io/poi:latest
-          imagePullPolicy: Always        
-          
-          args: 
-          - --SQL_USER
-          - sqladminhHm0245
-          - --SQL_PASSWORD 
-          - uL6nj2Qo1 
-          - --SQL_SERVER 
-          - sqlserverhhm0245.database.windows.net
-
-
+          env:
+            - name: CONFIG_FILES_PATH
+              value: "/secrets"           
+            - name: SQL_SERVER
+              value: "sqlserverhhm0245.database.windows.net"           
+            - name: SQL_DBNAME
+              value: "mydrivingDB"
+            - name: SQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mssqluser
+                  key: MSSQLUSER
+            - name: SQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mssqlpassw
+                  key: MSSQLPASSW
           ports:
             - containerPort: 80
               protocol: TCP
