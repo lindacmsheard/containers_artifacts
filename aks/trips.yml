@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: trips
-  namespace: tripinsight
+  namespace: api
   labels:
     app.kubernetes.io/name: trips
 spec:
@@ -50,7 +50,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: trips
-  namespace: tripinsight
+  namespace: api
 spec:
   type: ClusterIP
   ports:

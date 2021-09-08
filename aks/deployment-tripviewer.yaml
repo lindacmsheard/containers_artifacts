@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tripviewer
-  namespace: tripinsight
+  namespace: web
 spec:
   replicas: 1
   selector:
@@ -45,6 +45,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: tripviewer
+  namespace: web
 spec:
   type: LoadBalancer
   ports:
