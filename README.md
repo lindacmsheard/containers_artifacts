@@ -152,6 +152,29 @@ kubectl create secret generic mssqlconnectionstring \
 #     [--from-literal=key1=value1]
 ```
 
+
+learnings from pre-work - tripviewer deployment
+
+```
+kubectl apply -f deployment.yaml --namespace=tripinsight
+```
+(we started this with Tripviewer)
+
+--or--
+
+use the azure portal for a quick deployment
+
+(we did this for POI and then migrating that? )
+
+
+
+
+# how to test a running container
+use the kubernetes extension in VSCode to attach a terminal to a running container (e.g. poi)
+
+
+
+
 # Containers 2.0 Openhack
 
 <!-- 
