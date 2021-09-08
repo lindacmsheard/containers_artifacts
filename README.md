@@ -166,7 +166,14 @@ use the azure portal for a quick deployment
 
 (we did this for POI and then migrating that? )
 
+--
+First test of a deployment:
 
+connect a terminal using the vscode integration, and run the curl test, but using port 80 configured in the deployment
+
+```bash
+curl -i -X GET 'http://localhost:80/api/user' 
+```
 
 
 # how to test a running container
