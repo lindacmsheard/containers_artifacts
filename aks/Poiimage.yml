@@ -6,11 +6,14 @@ metadata:
   labels:
     app.kubernetes.io/name: poi
 spec:
-  auth_enabled: FALSE
   replicas: 1
   selector:
     matchLabels:
       app: poi
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
   template:
     metadata:
       labels:
@@ -34,8 +37,7 @@ spec:
 
 
           ports:
-            - name: http
-              containerPort: 8083
+            - containerPort: 80
               protocol: TCP
 
           resources:
@@ -54,30 +56,10 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-    - port: 8083
-      targetPort: 8083
+    - port: 80
+      targetPort: 80
       protocol: TCP
-      name: http
+      name: poi-http
   selector:
     app: poi
- 
-
-
----
-apiVersion: networking.k8s.io/v1beta1
-kind: Ingress
-metadata:
-  name: poi
-  namespace: tripinsight
-  annotations:
-    kubernetes.io/ingress.class: addon-http-application-routing
-spec:
-  rules:
-  - host: poi.aks-oh-dns-ddc81f8f.hcp.ukwest.azmk8s.io
-    http:
-      paths:
-      - backend:
-          serviceName: poi
-          servicePort: 8083
-        path: /api/poi/healthcheck
 

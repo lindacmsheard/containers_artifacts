@@ -3,6 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tripviewer
+  namespace: tripinsight
 spec:
   replicas: 1
   selector:
@@ -25,7 +26,7 @@ spec:
         image: registryhhm0245.azurecr.io/tripviewer:1.0
         env:
           - name: USERPROFILE_API_ENDPOINT
-            value: "userprofile"
+            value: "http://userprofile/"
           - name: TRIPS_API_ENDPOINT
             value: "trips"
           - name: BING_MAPS_KEY
