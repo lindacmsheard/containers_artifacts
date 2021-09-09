@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-java
+  namespace: api
+  labels:
+    app.kubernetes.io/name: user-java
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-java
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: user-java
+        version: beta-0514-1915
+        deploy: 21-05-14-19-15-24
+    spec:
+      containers:
+        - name: user-java
+          image: registryhhm0245.azurecr.io/user-java:1.0
+          env:         
+            - name: SQL_SERVER
+              value: "sqlserverhhm0245.database.windows.net"           
+            - name: SQL_DBNAME
+              value: "mydrivingDB"
+          volumeMounts:
+            - name: secrets-store-inline
+              mountPath: "/secrets"
+              readOnly: true
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 500m
+              memory: 512Mi
+      volumes:
+        - name: secrets-store-inline
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: team9-keyvault
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-java
+  namespace: api
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+      name: user-java-http
+  selector:
+    app: user-java
