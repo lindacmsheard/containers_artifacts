@@ -61,7 +61,7 @@ spec:
             driver: secrets-store.csi.k8s.io
             readOnly: true
             volumeAttributes:
-              secretProviderClass: spc-myk8skv
+              secretProviderClass: team9-keyvault
 ---
 apiVersion: v1
 kind: Service
