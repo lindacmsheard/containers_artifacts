@@ -20,7 +20,6 @@ spec:
         app: poi
         version: beta-0514-1915
         deploy: 21-05-14-19-15-24
-   
     spec:
       containers:
         - name: poi
@@ -41,11 +40,14 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: mssqlpassw
-                  key: MSSQLPASSW
+                  key: key
+          volumeMounts:
+            - name: secrets-store-inline
+              mountPath: "/mnt/secrets-store"
+              readOnly: true
           ports:
             - containerPort: 80
               protocol: TCP
-
           resources:
             limits:
               cpu: 500m
@@ -53,6 +55,13 @@ spec:
             requests:
               cpu: 500m
               memory: 512Mi
+      volumes:
+        - name: secrets-store-inline
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: spc-myk8skv
 ---
 apiVersion: v1
 kind: Service
@@ -68,4 +77,3 @@ spec:
       name: poi-http
   selector:
     app: poi
-
