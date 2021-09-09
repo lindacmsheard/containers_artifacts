@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: poi
-  namespace: api
+  namespace: default
   labels:
     app.kubernetes.io/name: poi
 spec:
@@ -67,7 +67,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: poi
-  namespace: api
+  namespace: default
 spec:
   type: ClusterIP
   ports:
