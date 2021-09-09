@@ -26,9 +26,9 @@ spec:
         image: registryhhm0245.azurecr.io/tripviewer:1.0
         env:
           - name: USERPROFILE_API_ENDPOINT
-            value: "http://userprofile.api.svc.cluster.local"
+            value: "http://userprofile/"
           - name: TRIPS_API_ENDPOINT
-            value: "http://trips.api.svc.cluster.local"
+            value: "http://trips/"
           - name: BING_MAPS_KEY
             value: "key"
         resources:
