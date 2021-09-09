@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: user-java
+  namespace: api
+  annotations:
+    kubernetes.io/ingress.class: addon-http-application-routing
+spec:
+  rules:
+  - host: tripviewer.bb83945b720a433ab833.ukwest.aksapp.io
+    http:
+      paths:
+      - path: /api/user-java/healthcheck
+        pathType: Prefix
+        backend:
+          service: 
+            name: user-java
+            port: 
+              number: 80			  
