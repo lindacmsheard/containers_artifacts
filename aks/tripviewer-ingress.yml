@@ -16,15 +16,15 @@ spec:
           service: 
             name: tripviewer
             port: 
-              number: 80
-	  - path: /Trip
+              number: 80 
+      - path: /Trip
         pathType: Prefix
         backend:
           service: 
             name: tripviewer
             port: 
-              number: 80	  
-	  - path: /UserProfile
+              number: 80
+      - path: /UserProfile
         pathType: Prefix
         backend:
           service: 
