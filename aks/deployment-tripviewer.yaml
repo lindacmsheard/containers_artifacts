@@ -47,7 +47,7 @@ metadata:
   name: tripviewer
   namespace: web
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
   - port: 80
   selector:
