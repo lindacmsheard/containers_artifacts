@@ -24,10 +24,3 @@ spec:
             name: poi
             port: 
               number: 80
-      - path: /api/poi/{ID}
-        pathType: Prefix
-        backend:
-          service: 
-            name: poi
-            port: 
-              number: 80
