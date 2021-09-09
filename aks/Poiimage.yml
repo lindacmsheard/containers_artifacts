@@ -24,23 +24,11 @@ spec:
       containers:
         - name: poi
           image: registryhhm0245.azurecr.io/poi:latest
-          env:
-            - name: CONFIG_FILES_PATH
-              value: "/secrets"           
+          env:         
             - name: SQL_SERVER
               value: "sqlserverhhm0245.database.windows.net"           
             - name: SQL_DBNAME
               value: "mydrivingDB"
-            - name: SQL_USER
-              valueFrom:
-                secretKeyRef:
-                  name: mssqluser
-                  key: MSSQLUSER
-            - name: SQL_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: mssqlpassw
-                  key: key
           volumeMounts:
             - name: secrets-store-inline
               mountPath: "/mnt/secrets-store"
