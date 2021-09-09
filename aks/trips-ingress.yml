@@ -17,41 +17,6 @@ spec:
             name: trips
             port: 
               number: 80
-      - path: /api/trips/{tripID}
-        pathType: Prefix
-        backend:
-          service: 
-            name: trips
-            port: 
-              number: 80 
-      - path: /api/trips/user/{userID}
-        pathType: Prefix
-        backend:
-          service: 
-            name: trips
-            port: 
-              number: 80  
-      - path: /api/trips/{tripID}/trippoints
-        pathType: Prefix
-        backend:
-          service: 
-            name: trips
-            port: 
-              number: 80  
-      - path: /api/trips/{tripID}/trippoints/{tripPointID}
-        pathType: Prefix
-        backend:
-          service: 
-            name: trips
-            port: 
-              number: 80
-      - path: /api/trips/healthcheck
-        pathType: Prefix
-        backend:
-          service: 
-            name: trips
-            port: 
-              number: 80
       - path: /api/docs/trips
         pathType: Prefix
         backend:
