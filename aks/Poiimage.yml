@@ -31,7 +31,7 @@ spec:
               value: "mydrivingDB"
           volumeMounts:
             - name: secrets-store-inline
-              mountPath: "/mnt/secrets-store"
+              mountPath: "/secrets
               readOnly: true
           ports:
             - containerPort: 80
