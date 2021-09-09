@@ -10,20 +10,13 @@ spec:
   - host: tripviewer.bb83945b720a433ab833.ukwest.aksapp.io
     http:
       paths:
-      - path: /api/user-java/{id}
+      - path: /api/user-java/
         pathType: Prefix
         backend:
           service: 
             name: user-java
             port: 
               number: 80
-      - path: /api/user-java/healthcheck
-        pathType: Prefix
-        backend:
-          service: 
-            name: user-java
-            port: 
-              number: 80  
       - path: /api/docs/user-java
         pathType: Prefix
         backend:

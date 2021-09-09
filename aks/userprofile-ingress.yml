@@ -17,17 +17,3 @@ spec:
             name: userprofile
             port: 
               number: 80
-      - path: /api/user/{id}
-        pathType: Prefix
-        backend:
-          service: 
-            name: userprofile
-            port: 
-              number: 80  
-      - path: /api/user/healthcheck
-        pathType: Prefix
-        backend:
-          service: 
-            name: userprofile
-            port: 
-              number: 80
