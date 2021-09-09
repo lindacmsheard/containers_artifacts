@@ -1,0 +1,33 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: poi
+  namespace: api
+  annotations:
+    kubernetes.io/ingress.class: addon-http-application-routing
+spec:
+  rules:
+  - host: tripviewer.bb83945b720a433ab833.ukwest.aksapp.io
+    http:
+      paths:
+      - path: /api/poi/healthcheck
+        pathType: Prefix
+        backend:
+          service: 
+            name: poi
+            port: 
+              number: 80
+	  - path: /api/poi
+        pathType: Prefix
+        backend:
+          service: 
+            name: poi
+            port: 
+              number: 80	  
+	  - path: /api/poi/{ID}
+        pathType: Prefix
+        backend:
+          service: 
+            name: poi
+            port: 
+              number: 80
