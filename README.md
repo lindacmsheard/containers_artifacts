@@ -193,6 +193,51 @@ curl -i -X GET 'http://localhost:80/api/user'
 use the kubernetes extension in VSCode to attach a terminal to a running container (e.g. poi)
 
 
+# CH4
+
+a) removing secrets
+```
+kubectl delete secret mssqlpassw -n api
+kubectl delete secret mssqluser -n api
+```
+
+b) deploying a keyvault
+```
+[see https://medium.com/swlh/integrate-azure-key-vault-with-azure-kubernetes-service-1a8740429bea]
+az keyvault create  --tname team9-keyvault--resource-group teamResources --location ukwest
+az keyvautl secret set --vault-name team9-keyvault --name mssqluser --value sqladminhHm0245
+az keyvault secret set --vault-name team9-keyvault --name mssqlpassw --value uL6nj2Qo1
+```
+
+
+c) install helm on the bastion host
+```
+helm repo add ... comand from blog
+helm install csi-secrets ...
+
+helm repo add-pod identity ...
+
+```
+
+d) Finally crate Azure Managed Identity
+we may not need this because we have already a managed identity for aks and cluster nodes. 
+but this is one for the pods specifically
+```
+az identity list
+az identity create -g teamResources -n aks2kvIdentity
+```
+
+e)  give the managed identity read access on the keyvault. 
+
+```
+clientId=`az identity show --name aks2kvIdentity --resource-group teamResources |jq -r .clientId`
+principalId=`az identity show --name aks2kvIdentity --resource-group teamResources |jq -r .principalId`
+subId=`az account show | jq -r .id`
+az role assignment create --role "Reader" --assignee $principalId --scope /subscriptions/$subId/resourceGroups/teamResources/providers/Microsoft.KeyVault/vaults/myk8skv
+az keyvault set-policy -n team9-keyvault --secret-permissions get --spn $clientId
+az keyvault set-policy -n team9-keyvault --key-permissions get --spn $clientId
+```
+
 
 
 # Containers 2.0 Openhack
@@ -231,7 +276,7 @@ a CLA and decorate the PR appropriately (e.g., status check, comment). Simply fo
 provided by the bot. You will only need to do this once across all repos using our CLA.
 
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
-For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
-contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
+provided by the bot. You will only need to do this once across all repos using our CLA.
 
-
+This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
